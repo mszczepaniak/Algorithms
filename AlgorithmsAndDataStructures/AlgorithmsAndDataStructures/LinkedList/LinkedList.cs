@@ -31,7 +31,42 @@ namespace AlgorithmsAndDataStructures.LinkedList
             return false;
         }
 
-        public bool isReadOnly
+        public bool Remove(T item)
+        {
+            LinkedListNode<T> previous = null;
+            LinkedListNode<T> current = Head;
+
+            while (current != null)
+            {
+                if (current.Value.Equals(item))
+                {
+                    if (previous != null)
+                    {
+                        previous.Next = current.Next;
+
+                        if (current.Next == null)
+                        {
+                            Tail = previous;
+                        }
+
+                        Count--;
+                    }
+                    else
+                    {
+                        RemoveFirst();
+                    }
+
+                    return true;
+                }
+
+                previous = current; 
+                current = current.Next;
+            }
+
+            return false;
+        }
+
+        public bool IsReadOnly
         {
             get { return false; }
         }
@@ -46,6 +81,18 @@ namespace AlgorithmsAndDataStructures.LinkedList
                 array[arrayIndex++] = current.Value;
                 current = current.Next;
             }
+        }
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
+            return ((System.Collections.Generic.IEnumerable<T>)this).GetEnumerator();
+        }
+
+        public void Clear()
+        {
+            Head = null;
+            Tail = null;
+            Count = 0;
         }
 
 
@@ -101,7 +148,7 @@ namespace AlgorithmsAndDataStructures.LinkedList
             {
                 if (Count == 1)
                 {
-                    Header = null;
+                    Head = null;
                     Tail = null;
                 }
                 else
