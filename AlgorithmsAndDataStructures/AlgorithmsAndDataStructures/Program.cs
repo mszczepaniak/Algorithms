@@ -7,7 +7,16 @@ namespace AlgorithmsAndDataStructures
     {
         static void Main(string[] args)
         {
-            
+            // AT FIRST USE THE .NET FRAMEWORK LINKEDLIST CLASS
+            System.Collections.Generic.LinkedList<int> list = new System.Collections.Generic.LinkedList<int>();
+            list.AddLast(3);
+            list.AddLast(5);
+            list.AddLast(7);
+
+            foreach (var value in list)
+            {
+                Console.WriteLine(value);
+            }
 
             // +-----+------+
             // |  3  | null +
