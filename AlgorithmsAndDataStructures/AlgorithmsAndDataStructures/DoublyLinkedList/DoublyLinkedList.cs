@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace AlgorithmsAndDataStructures.LinkedList
+namespace AlgorithmsAndDataStructures.DoublyLinkedList
 {
-    public class LinkedList<T> : 
-        ICollection<T>
+    public class DoublyLinkedList<T> :
+    ICollection<T>
     {
         public int Count { get; private set; }
 
@@ -13,11 +13,16 @@ namespace AlgorithmsAndDataStructures.LinkedList
             AddFirst(item);
         }
 
+        private bool Empty
+        {
+            get { return Count == 0; }
+        }
+
         public bool Contains(T item)
         {
             // we create new node and assign the first one to it
             LinkedListNode<T> current = Head;
-            while (current !=null)
+            while (current != null)
             {
                 if (current.Value.Equals(item))
                 {
@@ -47,6 +52,10 @@ namespace AlgorithmsAndDataStructures.LinkedList
                         {
                             Tail = previous;
                         }
+                        else
+                        {
+                            current.Next.Previous = previous;
+                        }
 
                         Count--;
                     }
@@ -58,7 +67,7 @@ namespace AlgorithmsAndDataStructures.LinkedList
                     return true;
                 }
 
-                previous = current; 
+                previous = current;
                 current = current.Next;
             }
 
@@ -70,7 +79,7 @@ namespace AlgorithmsAndDataStructures.LinkedList
             get { return false; }
         }
 
-        
+
 
         public void CopyTo(T[] array, int arrayIndex)
         {
@@ -95,7 +104,7 @@ namespace AlgorithmsAndDataStructures.LinkedList
         }
 
 
-        public LinkedListNode<T> Head { get; private set; } 
+        public LinkedListNode<T> Head { get; private set; }
         public LinkedListNode<T> Tail { get; private set; }
 
         public void AddFirst(T value)
@@ -113,12 +122,17 @@ namespace AlgorithmsAndDataStructures.LinkedList
 
             //Insert the rest of the list behind the head
             Head.Next = temp;
+
             Count++;
 
-            if (Count == 1)
+            if (Count == 0)
             {
                 //if the list was empty then Head and Tail should both point to the new node
                 Tail = Head;
+            }
+            else
+            {
+                temp.Previous = Head;
             }
         }
 
@@ -135,6 +149,7 @@ namespace AlgorithmsAndDataStructures.LinkedList
             else
             {
                 Tail.Next = node;
+                node.Previous = Tail;
             }
             Tail = node;
             Count++;
@@ -142,7 +157,7 @@ namespace AlgorithmsAndDataStructures.LinkedList
 
         public void RemoveLast()
         {
-            if (Count != 0)
+            if (!Empty)
             {
                 if (Count == 1)
                 {
@@ -151,14 +166,8 @@ namespace AlgorithmsAndDataStructures.LinkedList
                 }
                 else
                 {
-                    LinkedListNode <T> current = Head;
-                    while (current.Next != Tail)
-                    {
-                        current = current.Next;
-                    }
-
-                    current.Next = null;
-                    Tail = current;
+                    Tail.Previous.Next = null;
+                    Tail = Tail.Previous;
                 }
 
                 Count--;
@@ -176,6 +185,10 @@ namespace AlgorithmsAndDataStructures.LinkedList
                 {
                     Tail = null;
                 }
+                else
+                {
+                    Head.Previous = null;
+                }
             }
         }
 
@@ -189,4 +202,5 @@ namespace AlgorithmsAndDataStructures.LinkedList
             }
         }
     }
+
 }

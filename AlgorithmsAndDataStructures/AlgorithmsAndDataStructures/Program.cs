@@ -7,6 +7,8 @@ namespace AlgorithmsAndDataStructures
     {
         static void Main(string[] args)
         {
+            
+
             // +-----+------+
             // |  3  | null +
             // +-----+------+
