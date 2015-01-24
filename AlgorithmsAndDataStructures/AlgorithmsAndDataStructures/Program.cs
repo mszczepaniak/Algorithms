@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AlgorithmsAndDataStructures.LinkedList;
 
 namespace AlgorithmsAndDataStructures
 {
@@ -10,6 +6,8 @@ namespace AlgorithmsAndDataStructures
     {
         static void Main(string[] args)
         {
+            Node first = new Node {Value = 3};
+            Node middle = new Node() {Value = 5};
         }
     }
 }
